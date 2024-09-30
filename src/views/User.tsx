@@ -4,8 +4,8 @@ import { User } from '../models/User';
 
 interface UserListViewProps {
     users: User[];
-    onEdit: (id: number) => void;
-    onDelete: (id: number) => void;
+    onEdit: (id: string) => void;
+    onDelete: (id: string) => void;
 }
 
 const UserListView: React.FC<UserListViewProps> = ({ users, onEdit, onDelete }) => {
@@ -18,7 +18,7 @@ const UserListView: React.FC<UserListViewProps> = ({ users, onEdit, onDelete }) 
                     <th className="border border-gray-200 p-2">Email</th>
                     <th className="border border-gray-200 p-2">Age</th>
                     <th className="border border-gray-200 p-2">Password</th>
-                    <th className="border border-gray-200 p-2">Actions</th>
+                    <th className="border border-gray-200 p-2">Acciones</th>
                     
                 </tr>
             </thead>
@@ -32,16 +32,16 @@ const UserListView: React.FC<UserListViewProps> = ({ users, onEdit, onDelete }) 
                         <td className="border border-gray-200 p-2">{user.Password}</td>
                         <td className="border border-gray-200 p-2">
                             <button
-                                onClick={() => onEdit(user.ID || 0)}
+                                onClick={() => onEdit(user.ID || '')}
                                 className="bg-yellow-500 text-white p-1 mr-1"
                             >
-                                Edit
+                                Editar
                             </button>
                             <button
-                                onClick={() => onDelete(user.ID || 0)}
+                                onClick={() => onDelete(user.ID || '')}
                                 className="bg-red-500 text-white p-1"
                             >
-                                Delete
+                                Eliminar
                             </button>
                         </td>
                     </tr>

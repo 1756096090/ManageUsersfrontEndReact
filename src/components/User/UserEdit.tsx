@@ -8,28 +8,34 @@ const UserEdit: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-    const [controller] = useState(new UserController());
+    const [age, setAge] = useState<number | string>('');
+    const [password, setPassword] = useState('');
+
+    const controller = new UserController();
     const navigate = useNavigate();  
 
     useEffect(() => {
         if (id && id !== 'new') {
-            controller.getUser(parseInt(id)).then(user => {
+            controller.getUser(id).then(user => {
                 setName(user.Name);
                 setEmail(user.Email);
+                setAge(user.Age || 0);	
+                setPassword(user.Password || '');
             }).catch(error => {
                 console.error("Failed to load user", error);
             });
         }
-    }, [id, controller]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [id]);
 
     const handleSave = async () => {
-        const user: User = { ID: id !== 'new' ? parseInt(id || '0') : 0, Name: name, Email: email };
+        const user: User = { ID: id !== 'new' ? id || '' : '', Name: name, Email: email, Age: Number(age), Password: password };
 
         try {
             if (id !== 'new') {
                 await controller.editUser(user);
             } else {
-                await controller.addUser({ Name: name, Email: email });
+                await controller.addUser({ Name: name, Email: email, Age: Number(age), Password: password });
             }
             navigate('/users');  
         } catch (error) {
@@ -37,9 +43,13 @@ const UserEdit: React.FC = () => {
         }
     };
 
+    const handleReturn = () => {
+        navigate('/users');
+    };
+
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold">{id === 'new' ? 'Create User' : 'Edit User'}</h1>
+            <h1 className="text-2xl font-bold">{id === 'new' ? 'Crear Usuario' : 'Editar Usuario'}</h1>
 
             <div className="mb-4">
                 <input
@@ -57,17 +67,17 @@ const UserEdit: React.FC = () => {
                     className="border p-2 mr-2"
                 />
                 <input
-                    type="text"
+                    type="number"
                     placeholder="Age"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={age}
+                    onChange={(e) => setAge(e.target.value)}
                     className="border p-2 mr-2"
                 />
                 <input
                     type="password"
                     placeholder="Password"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     className="border p-2 mr-2"
                 />
                 <button
@@ -78,8 +88,7 @@ const UserEdit: React.FC = () => {
                 </button>
             </div>
             <button
-                onClick={handleSave}
-                style={{ backgroundColor: 'rgb(255, 255, 255)' }}
+                onClick={handleReturn}
                 className="text-black p-3 rounded-lg shadow-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 transition ease-in-out duration-300"
             >
                 Return

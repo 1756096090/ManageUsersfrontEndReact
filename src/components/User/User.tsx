@@ -19,7 +19,7 @@ const UserCrud: React.FC = () => {
         }
     }, [controller]);
 
-    useEffect(() => { // Se usa despues de que se inicializa el componente
+    useEffect(() => { 
         loadUsers();
     }, [loadUsers]);
 
@@ -27,11 +27,11 @@ const UserCrud: React.FC = () => {
         navigate('/users/edit/new'); 
     };
 
-    const handleEdit = (id: number) => {
+    const handleEdit = (id: string) => {
         navigate(`/users/edit/${id}`); 
     };
 
-    const handleDelete = async (id: number) => {
+    const handleDelete = async (id: string) => {
         try {
             await controller.removeUser(id);
             await loadUsers();
@@ -42,14 +42,14 @@ const UserCrud: React.FC = () => {
 
     return (
         <div className="p-4">
-            <h1 className="text-2xl font-bold">User Management</h1>
+            <h1 className="text-2xl font-bold">Manejo de usuarios</h1>
 
             <div className="mb-4">
                 <button
                     onClick={handleCreate}
                     className="bg-blue-500 text-white p-2"
                 >
-                    Create User
+                    Crear Usuario
                 </button>
             </div>
 

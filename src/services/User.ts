@@ -16,7 +16,7 @@ export const fetchUsers = async (): Promise<User[]> => {
     return handleResponse(response);
 };
 
-export const fetchUserById = async (id: number): Promise<User> => {
+export const fetchUserById = async (id: string): Promise<User> => {
     const response = await fetch(`${API_URL}/${id}`);
     return handleResponse(response);
 };
@@ -43,9 +43,22 @@ export const updateUser = async (user: User): Promise<User> => {
     return handleResponse(response);
 };
 
-export const deleteUser = async (id: number): Promise<void> => {
+export const deleteUser = async (id: string ): Promise<void> => {
     const response = await fetch(`${API_URL}/${id}`, {
         method: 'DELETE',
     });
     return handleResponse(response);
+};
+
+export const login = async (email: string, password: string): Promise<string> => {
+    const response = await fetch(`${API_URL}/login`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+    });
+    
+    const data = await handleResponse(response);
+    return data; 
 };
