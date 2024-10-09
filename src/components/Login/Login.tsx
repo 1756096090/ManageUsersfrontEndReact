@@ -39,14 +39,14 @@ const Login: React.FC = () => {
                 {error && <p className='text-red-500'>{error}</p>}
                 <input
                     type="text"
-                    placeholder="Username"
+                    placeholder="Usuario"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     className='border border-gray-300 p-2 mb-4 rounded'
                 />
                 <input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Contraseña"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className='border border-gray-300 p-2 mb-4 rounded'

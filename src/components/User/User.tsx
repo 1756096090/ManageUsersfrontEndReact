@@ -40,20 +40,34 @@ const UserCrud: React.FC = () => {
         }
     };
 
-    return (
-        <div className="p-4">
-            <h1 className="text-2xl font-bold">Manejo de usuarios</h1>
+    const logOut = () => {
+        localStorage.removeItem('token');
+        navigate('/');
+    }
 
-            <div className="mb-4">
-                <button
+    return (
+        <div className="p-6 max-w-4xl mx-auto bg-white shadow-lg rounded-lg">
+            <h1 className="text-3xl font-extrabold mb-6 text-gray-800">Manejo de usuarios</h1>
+            
+            <div className="flex justify-between items-center mb-6">
+                <button 
+                    onClick={logOut}
+                    className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow-md focus:outline-none transition ease-in-out duration-300"
+                >
+                    Cerrar sesión
+                </button>
+
+                <button 
                     onClick={handleCreate}
-                    className="bg-blue-500 text-white p-2"
+                    className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow-md focus:outline-none transition ease-in-out duration-300"
                 >
                     Crear Usuario
                 </button>
             </div>
 
-            <UserListView users={users} onEdit={handleEdit} onDelete={handleDelete} />
+            <div className="bg-gray-50 p-4 rounded-lg shadow-inner">
+                <UserListView users={users} onEdit={handleEdit} onDelete={handleDelete} />
+            </div>
         </div>
     );
 };
