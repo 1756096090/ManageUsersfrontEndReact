@@ -1,15 +1,26 @@
-## Configuración de la Base de Datos
+# Proyecto de Aplicación React
 
-En el archivo `config/config.go`, se encuentra toda la lógica necesaria para conectar nuestra aplicación a una base de datos MongoDB remota. A continuación, se describen los componentes clave:
+Este proyecto es una aplicación React que sigue un enfoque basado en componentes y utiliza el patrón MVC (Modelo-Vista-Controlador). Se usa react, go y mongo para el desarrollo de la web
+## Estructura de la Aplicación
 
-- **Conexión a MongoDB**: La aplicación se conecta a la base de datos utilizando las credenciales y la cadena de conexión proporcionadas. Se utiliza el paquete `mongo-driver` para gestionar la conexión y realizar operaciones con la base de datos.
+### Componente Principal: `App.tsx`
 
-- **model**: La capa de modelo define las estructuras de datos que representan los documentos en la base de datos. Aquí se especifican las propiedades y tipos de datos que se utilizarán en las operaciones de la aplicación.
+En la parte `App.tsx` se encuentra el componente principal de la aplicación. Este componente actúa como el componente padre que redirige a las diferentes rutas de la aplicación. Desde aquí, puedes acceder a todos los demás componentes que funcionan como vistas. Al utilizar React, es más eficiente referirse a ellos como componentes, ya que estos pueden ser reutilizados en diferentes partes de la aplicación.
 
-- **routes**: La aplicación cuenta con un sistema de rutas que dirigen las solicitudes a los controladores correspondientes. Estos controladores son responsables de manejar las peticiones y de interactuar con los servicios.
+### Vistas
 
-- **services**: Los servicios actúan como intermediarios entre los controladores y la lógica del negocio. Aquí se implementan las operaciones específicas que se desean realizar con los datos.
+Las vistas se encuentran en la carpeta `views`. Aquí es donde se organizan los diferentes componentes que representan las diferentes pantallas de la aplicación. Pero usamos la vista mejor en la parte de componentes al ser react.
 
-- **Repositorio**: La capa de repositorio se encarga de la lógica relacionada con la base de datos, facilitando las interacciones necesarias para acceder y manipular los datos.
+### Controladores
+
+La lógica de negocio se divide en dos partes en la carpeta `controllers`:
+
+1. **Controladores**: Estos controladores se encargan de la interacción entre las vistas y los servicios. Son responsables de manejar las acciones del usuario y coordinar la respuesta apropiada.
+   
+2. **Servicios**: Los servicios son responsables de realizar las peticiones a otros servicios (como APIs externas). Esta separación permite que la lógica de negocio sea más escalable y fácil de mantener.
+
+### Modelos
+
+La carpeta `models` contiene las definiciones de los modelos que representan la estructura de los datos que se utilizan en la aplicación. 
 
 
