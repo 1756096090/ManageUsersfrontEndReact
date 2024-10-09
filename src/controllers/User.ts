@@ -54,7 +54,7 @@ export class UserController {
     }
   }
 
-  async login(email: string, password: string): Promise<string> {
+  async login(email: string, password: string): Promise<any> {
     try {
       return await login(email, password);
     } catch (error) {

@@ -20,9 +20,9 @@ const Login: React.FC = () => {
         }
 
         try {
-            const token = await controller.login(username, password); 
-            console.log('Login successful!', { username, token });
-            localStorage.setItem('token', token);
+            const dataToken = await controller.login(username, password); 
+            console.log('Login successful!', { username, token:dataToken.token });
+            localStorage.setItem('token', dataToken.token);
 
             navigate('/users');
         } catch (err) {
