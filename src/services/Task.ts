@@ -1,8 +1,10 @@
 // src/services/TaskService.ts
 import { Task } from '../models/Task';
 import { TaskGet } from '../models/TaskGet';
+import { OverdueTaskReport } from '../models/OverdueTaskReport';
+import config from '../Config/config';
 
-const API_URL = 'http://localhost:8080/tasks';
+const API_URL = `${config.API_BASE_URL}/tasks`;
 
 const handleResponse = async (response: Response): Promise<any> => {
     if (!response.ok) {
@@ -50,4 +52,15 @@ export const deleteTask = async (id: string ): Promise<void> => {
     });
     return handleResponse(response);
 };
+
+export const fetchOverdueTaskReport = async (start_date: string, end_date:string): Promise<OverdueTaskReport[]> => {
+    const response = await fetch(`${API_URL}/dates`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ start_date, end_date }),
+    });
+    return handleResponse(response);
+}
 

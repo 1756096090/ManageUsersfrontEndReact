@@ -1,7 +1,9 @@
 // src/services/userService.ts
 import { User } from '../models/User';
+import config from '../Config/config';
 
-const API_URL = 'http://localhost:8080/users';
+const API_URL = `${config.API_BASE_URL}/users`;
+
 
 const handleResponse = async (response: Response): Promise<any> => {
     if (!response.ok) {

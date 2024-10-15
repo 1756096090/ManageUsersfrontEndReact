@@ -1,7 +1,8 @@
 // src/services/EmployeeService.ts
 import { Employee } from '../models/Employee';
+import config from '../Config/config';
 
-const API_URL = 'http://localhost:8080/employees';
+const API_URL = `${config.API_BASE_URL}/employees`;
 
 const handleResponse = async (response: Response): Promise<any> => {
     if (!response.ok) {

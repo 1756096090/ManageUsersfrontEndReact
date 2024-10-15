@@ -47,11 +47,17 @@ const TaskEdit: React.FC = () => {
             console.error("Failed to load projects", error);
         });
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id]);
-
-    const formatDateForInput = (date: Date): string => {
-        return date.toISOString().split('T')[0];
+    
+    const formatDateForInput = (date: Date | string): string => {
+        const parsedDate = typeof date === 'string' ? new Date(date) : date;
+        if (!isNaN(parsedDate.getTime())) {
+            return parsedDate.toISOString().split('T')[0];
+        }
+        return ''; // Devuelve una cadena vacía si la fecha no es válida
     };
+    
 
     const handleSave = async () => {
         const task: Task = {

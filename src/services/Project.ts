@@ -1,7 +1,8 @@
 // src/services/ProjectService.ts
 import { Project } from '../models/Project';
+import config from '../Config/config';
 
-const API_URL = 'http://localhost:8080/proyects';
+const API_URL = `${config.API_BASE_URL}/proyects`;
 
 const handleResponse = async (response: Response): Promise<any> => {
     if (!response.ok) {

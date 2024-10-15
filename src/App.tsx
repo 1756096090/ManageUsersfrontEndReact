@@ -11,6 +11,7 @@ import ProyectCrud from './components/Proyect/Project';
 import ProyectEdit from './components/Proyect/ProjectEdit';
 import TaskCrud from './components/Task/Task';
 import TaskEdit from './components/Task/TaskEdit';
+import OverdueTaskReportView from './components/OverdueTask/OverdueTask';
 const App: React.FC = () => {
   return (
     <Router>
@@ -25,6 +26,7 @@ const App: React.FC = () => {
           <Route path="projects/edit/:id" element={<ProyectEdit />} />
           <Route path="tasks" element={<TaskCrud />} />
           <Route path="tasks/edit/:id" element={<TaskEdit />} />
+          <Route path="report" element={<OverdueTaskReportView/>} />
         </Route>
       </Routes>
     </Router>

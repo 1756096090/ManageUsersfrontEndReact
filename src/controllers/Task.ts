@@ -1,3 +1,4 @@
+import { OverdueTaskReport } from '../models/OverdueTaskReport';
 import { Task } from '../models/Task';
 import { TaskGet } from '../models/TaskGet';
 import {
@@ -6,6 +7,7 @@ import {
     updateTask,
     deleteTask,
     fetchTaskById,
+    fetchOverdueTaskReport,
 } from '../services/Task';
 
 export class TaskController {
@@ -51,6 +53,15 @@ export class TaskController {
         } catch (error) {
             console.error(`Failed to delete Task with ID ${id}:`, error);
             throw new Error('Could not delete Task.');
+        }
+    }
+
+    async getOverdueTaskReport(startDate: string, endDate: string): Promise<OverdueTaskReport[]> {
+        try {
+            return await fetchOverdueTaskReport(startDate, endDate);
+        } catch (error) {
+            console.error('Failed to fetch Overdue Task Report:', error);
+            throw new Error('Could not fetch Overdue Task Report.');
         }
     }
 
