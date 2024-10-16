@@ -1,26 +1,96 @@
 # Proyecto de Aplicación React
 
-Este proyecto es una aplicación React que sigue un enfoque basado en componentes y utiliza el patrón MVC (Modelo-Vista-Controlador). Se usa react, go y mongo para el desarrollo de la web
-## Estructura de la Aplicación
+Este proyecto es una aplicación React que sigue un enfoque basado en componentes y utiliza el patrón MVC (Modelo-Vista-Controlador). La aplicación está desarrollada con **React** para el frontend, **Go** para el backend, y **MongoDB** como base de datos.
 
-### Componente Principal: `App.tsx`
+- **Backend**: [https://backendmanageuserswithgo-production.up.railway.app](https://backendmanageuserswithgo-production.up.railway.app)
+- **Frontend**: [https://manage-usersfront-end-react-laxza9xv0-1756096090s-projects.vercel.app](https://manage-usersfront-end-react-laxza9xv0-1756096090s-projects.vercel.app)
+- **Usuario**: `isaac.cerda@example.com`
+- **Contraseña**: `1234`
 
-En la parte `App.tsx` se encuentra el componente principal de la aplicación. Este componente actúa como el componente padre que redirige a las diferentes rutas de la aplicación. Desde aquí, puedes acceder a todos los demás componentes que funcionan como vistas. Al utilizar React, es más eficiente referirse a ellos como componentes, ya que estos pueden ser reutilizados en diferentes partes de la aplicación.
+## Tecnologías Utilizadas
 
-### Vistas
+- **Frontend**: React
+- **Backend**: Go
+- **Base de Datos**: MongoDB
 
-Las vistas se encuentran en la carpeta `views`. Aquí es donde se organizan los diferentes componentes que representan las diferentes pantallas de la aplicación. Pero usamos la vista mejor en la parte de componentes al ser react.
+## Estructura del Proyecto
 
-### Controladores
+### 1. Componente Principal: `App.tsx`
+El componente principal de la aplicación es `App.tsx`. Este componente actúa como el punto de entrada y contiene las rutas hacia las diferentes vistas. En React, cada vista es un componente, lo que permite la reutilización eficiente de los mismos en toda la aplicación.
 
-La lógica de negocio se divide en dos partes en la carpeta `controllers`:
+### 2. Vistas (Views)
+Las vistas de la aplicación están organizadas en la carpeta `views`, donde cada una representa una pantalla específica. En lugar de referirse a ellas estrictamente como vistas, se recomienda pensar en ellas como componentes reutilizables.
 
-1. **Controladores**: Estos controladores se encargan de la interacción entre las vistas y los servicios. Son responsables de manejar las acciones del usuario y coordinar la respuesta apropiada.
-   
-2. **Servicios**: Los servicios son responsables de realizar las peticiones a otros servicios (como APIs externas). Esta separación permite que la lógica de negocio sea más escalable y fácil de mantener.
+### 3. Controladores (Controllers)
+La lógica de negocio está dividida en dos partes dentro de la carpeta `controllers`:
+- **Controladores**: Gestionan la interacción entre las vistas y los servicios, respondiendo a las acciones del usuario.
+- **Servicios**: Se encargan de realizar peticiones a APIs u otros servicios externos. Esta separación hace que el código sea más mantenible y escalable.
 
-### Modelos
+### 4. Modelos (Models)
+La carpeta `models` contiene las definiciones de los modelos que representan la estructura de los datos utilizados en la aplicación. Estos modelos son fundamentales para la interacción con la base de datos y la validación de datos.
 
-La carpeta `models` contiene las definiciones de los modelos que representan la estructura de los datos que se utilizan en la aplicación. 
+### 5. Configuración (Config)
+La configuración, incluida la URL del backend, está centralizada en la carpeta `config`, permitiendo que cualquier cambio en la URL del backend se realice en un solo lugar.
 
+## Conexión a la Base de Datos MongoDB
+
+La conexión con MongoDB se maneja en el siguiente archivo `config/database.go`:
+
+```go
+package config
+
+import (
+    "context"
+    "log"
+    "go.mongodb.org/mongo-driver/mongo"
+    "go.mongodb.org/mongo-driver/mongo/options"
+)
+
+var DB *mongo.Database
+
+func ConnectDB() *mongo.Database {
+    // Reemplazar con tus credenciales y cadena de conexión de MongoDB
+    clientOptions := options.Client().ApplyURI("mongodb+srv://user_test:Ismacs2003@firstproyectwebengineer.b6xlw.mongodb.net/?retryWrites=true&w=majority&appName=FirstProyectWebEngineering")
+    client, err := mongo.Connect(context.Background(), clientOptions)
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    err = client.Ping(context.Background(), nil)
+    if err != nil {
+        log.Fatal(err)
+    }
+    log.Println("Conectado a MongoDB!")
+    DB = client.Database("FirstProyectWebEngineering")
+    return DB
+} 
+```
+
+# Instrucciones para Ejecutar el Proyecto
+
+## 1. Frontend (React)
+
+### Requisitos:
+- **Node.js** (Versión 18.x)
+
+### Pasos:
+1. Clonar el repositorio del frontend.
+2. Instalar las dependencias
+   `npm install`
+3. Ejecutar la aplicación:
+ `npm start`
+
+## Backend(Go)
+(https://github.com/1756096090/backendManageUsersWithGo )
+
+### Requisitos:
+Go instalado en el sistema.
+### Pasos:
+Clonar el repositorio del backend.
+
+Ejecutar la aplicación:
+`go run main.go`
+## Notas:
+- Asegúrate de tener Node.js versión 18 para el frontend.
+- La base de datos se conecta automáticamente utilizando las credenciales proporcionadas en el archivo de configuración.
 
